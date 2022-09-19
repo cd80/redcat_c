@@ -142,7 +142,7 @@ void cleanup_thread(int thread_idx) {
     char buf[256] = {0, };
     sprintf(buf, "Client exited: %s [%s]", g_clients[tid]->name, g_clients[tid]->ip);
     create_msg(g_clients[tid], buf);
-    
+
     g_threads[tid] = 0;
     free(g_clients[tid]->name);
     free(g_clients[tid]->ip);
@@ -221,7 +221,7 @@ void *handle_messages(void *v) {
         do {
             client->msg_cursor++;
             char time_str[256] = "00:00:00";
-            get_time_string(last_msg->time, time_str);
+            strftime(time_str, sizeof(time_str), "%T", localtime(&last_msg->time));
 
             // msg format
             // SENDER|TIME|MSG
